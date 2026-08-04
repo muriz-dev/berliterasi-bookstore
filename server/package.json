@@ -2,13 +2,17 @@
   "name": "elysia",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
     "dev": "bun run --watch src/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "bun run ./src/db/seed.ts"
+    "db:seed": "bun run ./src/db/seed.ts",
+    "biome:check": "bunx --bun @biomejs/biome check",
+    "biome:format": "bunx --bun @biomejs/biome format --write",
+    "biome:lint": "bunx --bun @biomejs/biome lint --write"
   },
   "dependencies": {
     "drizzle-orm": "^1.0.0-rc.4",
@@ -17,6 +21,7 @@
     "uuidv7": "^1.2.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.7",
     "@types/pg": "^8.20.0",
     "bun-types": "latest",
     "drizzle-kit": "^1.0.0-rc.4"
