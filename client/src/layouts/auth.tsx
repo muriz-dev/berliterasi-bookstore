@@ -1,14 +1,24 @@
 import coverBook from "../assets/cover_book.jpg";
 import type { PropsWithChildren } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const AuthLayout = ({ children }: PropsWithChildren) => {
+  const location = useLocation();
+
+  const getBackPath = () => {
+    if (location.pathname === "/login") {
+      return "/";
+    }
+    return "/login";
+  };
+
   return (
     <>
       <div className="min-h-screen flex items-center justify-center text-slate-900 bg-linear-to-r from-cyan-50 via-white to-indigo-50 p-4 md:p-8">
         <div className="flex flex-col items-start w-full max-w-5xl">
-          <a
-            href="#"
-            className="flex items-center font-medium gap-2 mb-5 rounded-md border border-slate-400 bg-white px-3 py-1"
+          <Link
+            to={getBackPath()}
+            className="flex items-center font-medium gap-2 mb-5 rounded-md hover:underline px-3 py-1"
           >
             <svg
               className="w-6 h-6 text-black inline-block"
@@ -28,7 +38,7 @@ const AuthLayout = ({ children }: PropsWithChildren) => {
               />
             </svg>
             Kembali
-          </a>
+          </Link>
           <main className="w-full bg-white rounded-3xl shadow-xl p-6 md:p-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
               <div className="hidden md:flex flex-col justify-center items-center w-full h-full">
