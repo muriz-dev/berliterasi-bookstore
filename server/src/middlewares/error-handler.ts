@@ -1,6 +1,6 @@
-import Elysia from "elysia";
-import { ApiError } from "../utils/api-error";
+import Elysia, { type ValidationError } from "elysia";
 import { appLogger } from "../utils/logger";
+import { ApiError } from "../utils/api-error";
 
 const isBetterAuthError = (
     err: unknown
@@ -15,18 +15,18 @@ const isBetterAuthError = (
 
 export const errorHandler = new Elysia({ name: "error-handler" })
     .use(appLogger)
-    .onError(({ code, error, set, request, log }) => {
+    .onError(({ code, error, request, log }) => {
         let statusCode = 500;
         let message = "Internal server error";
         let errors: unknown;
 
-        if (error instanceof SyntaxError) {
-            statusCode = 400;
-            message = "Invalid request body";
-        } else if (error instanceof ApiError) {
+        if (error instanceof ApiError) {
             statusCode = error.statusCode;
             message = error.message;
             errors = error.errors;
+        } else if (error instanceof SyntaxError || code === "PARSE") {
+            statusCode = 400;
+            message = "Invalid request body";
         } else if (isBetterAuthError(error)) {
             statusCode = error.statusCode;
             message = error.message;
@@ -34,35 +34,34 @@ export const errorHandler = new Elysia({ name: "error-handler" })
             statusCode = 404;
             message = "Route not found";
         } else if (code === "VALIDATION") {
-            statusCode = 400;
+            statusCode = 422;
             message = "Validation Error";
-            errors = (error as any).all;
+            errors = (error as ValidationError).all;
         }
 
         const url = new URL(request.url);
         const path = `${request.method} ${url.pathname}`;
 
-        if (statusCode >= 500) {
-            log?.error(
-                { err: error, statusCode, path },
-                "HTTP handler error: %s",
-                message
-            );
+        const isServerError = statusCode >= 500;
+
+        if (isServerError) {
+            log?.error({ err: error, statusCode, path }, "HTTP handler error: %s", message);
         } else {
-            log?.warn(
-                { statusCode, path },
-                "HTTP handler client error: %s",
-                message
-            );
+            log?.warn({ statusCode, path, ...(errors ? { errors } : {}) }, "HTTP handler client error: %s", message);
         }
 
-        set.status = statusCode;
+        const stack = error instanceof Error ? error.stack : undefined;
 
-        return {
-            success: false,
-            message,
-            statusCode,
-            ...(errors !== undefined && { errors }),
-            ...(Bun.env.NODE_ENV === "development" && { stack: (error as Error).stack })
-        };
-    });
+        return new Response(
+            JSON.stringify({
+                success: false,
+                message,
+                statusCode,
+                timestamp: new Date().toISOString(),
+                ...(errors !== undefined ? { errors } : {}),
+                ...(Bun.env.NODE_ENV === "development" && stack ? { stack } : {})
+            }),
+            { status: statusCode, headers: { "Content-Type": "application/json" } }
+        );
+    })
+    .as("global");
