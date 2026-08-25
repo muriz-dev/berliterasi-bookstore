@@ -22,7 +22,11 @@ const globalMiddlewares = new Elysia()
 
 export const app = new Elysia()
 	.use(globalMiddlewares)
-	.get("/", () => "Hello Elysia")
+	.get("/", () => "Hello Elysia", {
+		detail: {
+			hide: true
+		}
+	})
 	.use(categoryRoutes);
 
 if (import.meta.main) {
