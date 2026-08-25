@@ -1,7 +1,7 @@
-import { defineRelationsPart } from "drizzle-orm";
+import { defineRelations } from "drizzle-orm";
 import * as schema from "./schema";
 
-export const usersRelations = defineRelationsPart(schema, (r) => ({
+export const relations = defineRelations(schema, (r) => ({
 	users: {
 		bookmarks: r.many.bookmarks(),
 		reviews: r.many.reviews(),
@@ -20,15 +20,9 @@ export const usersRelations = defineRelationsPart(schema, (r) => ({
 			to: r.books.id.through(r.carts.bookId),
 		}),
 	},
-}));
-
-export const bookCategoriesRelations = defineRelationsPart(schema, (r) => ({
 	bookCategories: {
 		books: r.many.books(),
 	},
-}));
-
-export const booksRelations = defineRelationsPart(schema, (r) => ({
 	books: {
 		category: r.one.bookCategories({
 			from: r.books.categoryId,
@@ -57,9 +51,6 @@ export const booksRelations = defineRelationsPart(schema, (r) => ({
 			),
 		}),
 	},
-}));
-
-export const bookmarksRelations = defineRelationsPart(schema, (r) => ({
 	bookmarks: {
 		user: r.one.users({
 			from: r.bookmarks.userId,
@@ -70,9 +61,6 @@ export const bookmarksRelations = defineRelationsPart(schema, (r) => ({
 			to: r.books.id,
 		}),
 	},
-}));
-
-export const reviewsRelations = defineRelationsPart(schema, (r) => ({
 	reviews: {
 		user: r.one.users({
 			from: r.reviews.userId,
@@ -83,9 +71,6 @@ export const reviewsRelations = defineRelationsPart(schema, (r) => ({
 			to: r.books.id,
 		}),
 	},
-}));
-
-export const cartsRelations = defineRelationsPart(schema, (r) => ({
 	carts: {
 		user: r.one.users({
 			from: r.carts.userId,
@@ -96,21 +81,12 @@ export const cartsRelations = defineRelationsPart(schema, (r) => ({
 			to: r.books.id,
 		}),
 	},
-}));
-
-export const paymentMethodsRelations = defineRelationsPart(schema, (r) => ({
 	paymentMethods: {
 		transactionHistories: r.many.transactionHistories(),
 	},
-}));
-
-export const voucherTypesRelations = defineRelationsPart(schema, (r) => ({
 	voucherTypes: {
 		vouchers: r.many.vouchers(),
 	},
-}));
-
-export const vouchersRelations = defineRelationsPart(schema, (r) => ({
 	vouchers: {
 		voucherType: r.one.voucherTypes({
 			from: r.vouchers.voucherTypeId,
@@ -118,36 +94,27 @@ export const vouchersRelations = defineRelationsPart(schema, (r) => ({
 		}),
 		transactionHistories: r.many.transactionHistories(),
 	},
-}));
-
-export const transactionHistoriesRelations = defineRelationsPart(
-	schema,
-	(r) => ({
-		transactionHistories: {
-			user: r.one.users({
-				from: r.transactionHistories.userId,
-				to: r.users.id,
-			}),
-			paymentMethod: r.one.paymentMethods({
-				from: r.transactionHistories.paymentMethodId,
-				to: r.paymentMethods.id,
-			}),
-			voucher: r.one.vouchers({
-				from: r.transactionHistories.voucherId,
-				to: r.vouchers.id,
-			}),
-			transactionDetails: r.many.transactionDetails(),
-			books: r.many.books({
-				from: r.transactionHistories.id.through(
-					r.transactionDetails.transactionHistoryId,
-				),
-				to: r.books.id.through(r.transactionDetails.bookId),
-			}),
-		},
-	}),
-);
-
-export const transactionDetailsRelations = defineRelationsPart(schema, (r) => ({
+	transactionHistories: {
+		user: r.one.users({
+			from: r.transactionHistories.userId,
+			to: r.users.id,
+		}),
+		paymentMethod: r.one.paymentMethods({
+			from: r.transactionHistories.paymentMethodId,
+			to: r.paymentMethods.id,
+		}),
+		voucher: r.one.vouchers({
+			from: r.transactionHistories.voucherId,
+			to: r.vouchers.id,
+		}),
+		transactionDetails: r.many.transactionDetails(),
+		books: r.many.books({
+			from: r.transactionHistories.id.through(
+				r.transactionDetails.transactionHistoryId,
+			),
+			to: r.books.id.through(r.transactionDetails.bookId),
+		}),
+	},
 	transactionDetails: {
 		transactionHistory: r.one.transactionHistories({
 			from: r.transactionDetails.transactionHistoryId,
@@ -159,17 +126,3 @@ export const transactionDetailsRelations = defineRelationsPart(schema, (r) => ({
 		}),
 	},
 }));
-
-export const relations = {
-	...usersRelations,
-	...bookCategoriesRelations,
-	...booksRelations,
-	...bookmarksRelations,
-	...reviewsRelations,
-	...cartsRelations,
-	...paymentMethodsRelations,
-	...voucherTypesRelations,
-	...vouchersRelations,
-	...transactionHistoriesRelations,
-	...transactionDetailsRelations,
-};
