@@ -1,4 +1,5 @@
 import XSCard from "./components/xs-card";
+import HeroBanner from "./components/hero-section";
 
 
 export default function Home() {
@@ -6,7 +7,8 @@ export default function Home() {
     <>
       <div className="min-h-screen flex flex-col">
         {/* INI NAVBAR */}
-      
+
+          <HeroBanner />
           <XSCard />
         
       </div>
