@@ -2,17 +2,17 @@ import ScrollContainer from 'react-indiana-drag-scroll';
 
 const XSCard = () => {
     return (
-        <div className="mt-4 w-full">
+        <div className="mt-4 w-full max-w-7xl mx-auto px-4">
           
             <h2 className="text-xl font-bold text-gray-900 mb-4">
                 Kategori Terlaris
             </h2>
 
-            
-            <ScrollContainer className="flex gap-4 overflow-x-auto pb-4 snap-x [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]">
+            {/* @ts-expect-error*/}
+            <ScrollContainer className="flex gap-4 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden scrollbar-none [-ms-overflow-style:none]">
 
               
-                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0 snap-start">
+                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0">
                     <img
                         src="../public/img/cover-buku1.jpeg"
                         alt="Komik Aksi & Petualangan"
@@ -27,7 +27,7 @@ const XSCard = () => {
                 </div>
 
                 
-                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0 snap-start">
+                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0">
                     <img
                         src="../public/img/Flag_of_Germany_(1935–1945).svg.webp"
                         alt="Fiksi Romantis"
@@ -41,7 +41,7 @@ const XSCard = () => {
                     </div>
                 </div>
                 
-                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0 snap-start">
+                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0">
                     <img
                         src="../public/img/cover-buku1.jpeg"
                         alt="Komik Aksi & Petualangan"
@@ -56,7 +56,7 @@ const XSCard = () => {
                 </div>
 
                 
-                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0 snap-start">
+                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0">
                     <img
                         src="../public/img/Flag_of_Germany_(1935–1945).svg.webp"
                         alt="Fiksi Romantis"
@@ -70,7 +70,7 @@ const XSCard = () => {
                     </div>
                 </div>
 
-                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0 snap-start">
+                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0">
                     <img
                         src="../public/img/cover-buku1.jpeg"
                         alt="Komik Aksi & Petualangan"
@@ -85,7 +85,7 @@ const XSCard = () => {
                 </div>
 
                 
-                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0 snap-start">
+                <div className="relative w-55 md:w-62.5 h-32.5 rounded-xl overflow-hidden group cursor-pointer shrink-0">
                     <img
                         src="../public/img/Flag_of_Germany_(1935–1945).svg.webp"
                         alt="Fiksi Romantis"

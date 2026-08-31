@@ -1,7 +1,7 @@
 const HeroBanner = () => {
   return (
    
-    <div className="w-full mt-6 mb-8 max-w-6xl mx-auto px-4">
+    <div className="w-full mt-6 mb-8 max-w-7xl mx-auto px-4">
       
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">

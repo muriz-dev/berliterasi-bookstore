@@ -1,7 +1,7 @@
 const Card_sm = () => {
     return (
 
-        <div className="flex flex-wrap gap-4 md:gap-5 justify-start">
+        <div className="flex flex-wrap gap-4 md:gap-5 justify-start max-w-7xl mx-auto px-4">
 
             <div className="max-w-50 bg-white rounded-2xl shadow-sm p-4 border border-gray-100 flex flex-col gap-4 transition-all hover:shadow-lg">
 
