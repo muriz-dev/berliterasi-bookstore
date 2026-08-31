@@ -1,5 +1,5 @@
-import NavFoot from "../layouts/nav-foot";
-import Card_sm from "../components/card-sm";
+import NavFoot from "../src/layouts/nav-foot";
+import Card_sm from "../src/components/card-sm";
 
 export default function Home() {
   return (

@@ -52,7 +52,7 @@ const Card_sm = () => {
                 <div className="relative aspect-2/3 w-full bg-white rounded-lg flex items-center justify-center p-3 border border-gray-100">
 
 
-                    <img src="../public/img/cover-buku1.jpeg" alt="Cover" className="h-full object-contain" />
+                    <img src="../public/img/cover2.jpg" alt="Cover" className="h-full object-contain" />
 
 
                     <span className="absolute top-2 left-2 flex items-center gap-1 bg-gray-50 text-gray-700 text-xs font-medium px-2 py-0.5 rounded border">
@@ -76,7 +76,7 @@ const Card_sm = () => {
 
 
                     <h3 className="font-semibold text-sm text-black line-clamp-2 leading-tight">
-                        Main Kampf
+                        1000+ Fakta Nazi Jerman yang Tidak Diketahui Banyak Orang
                     </h3>
 
                     <div className="mt-1.5 flex items-end gap-2.5 flex-wrap">
